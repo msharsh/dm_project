@@ -1,7 +1,24 @@
+'''
+This module contains funtions that implement the ability
+to read info from file, build adjacency dictionary and
+adjacency matrix
+
+TODO: adjancency matrix for orientated graph
+TODO: improve adjancency dict for orieentated graph
+TODO: if someone will need to use weighed graph,
+you should use matrix (which won't only be binary),
+moreover, you will need to change some function here.
+
+FEEL FREE TO MAKE CHANGES AND TO IMPROVE THIS FILE
+'''
+
 from typing import Dict, List, Tuple, Set
 from pprint import pprint
 
-def read_graph(path_to_file: str) -> Set[Tuple[int]]:
+import csv
+import numpy as np
+
+def read_file(path_to_file: str) -> Set[Tuple[int]]:
     '''
     This functions reads info from file with graph.
     Info should look like:
@@ -18,10 +35,12 @@ def read_graph(path_to_file: str) -> Set[Tuple[int]]:
 
     return set(data)
 
-def dict_graph(edges: set) -> Dict[int, Tuple[int]]:
+def dict_graph_orien(edges: set) -> Dict[int, Tuple[int]]:
     '''
-    Converts set of vertices into dict, where key is
-    edge.
+    Creates adjacency dictionary, which keys are vertices and
+    values are edges of the graph.
+    It is not optimised well, however that's the first thing that I came up to
+    for orientated graphs.
     '''
 
     graph = {}
@@ -31,16 +50,40 @@ def dict_graph(edges: set) -> Dict[int, Tuple[int]]:
 
     return graph
 
-def adjacency_matrix(graph):
-    
-    columns = sorted([elm[0] for elm in graph])
-    
-    matrix = [[0 for _ in range(len(columns))] for _ in range(len(columns))]
-    for elm in graph:
-        matrix[elm[0] - 1][elm[1] - 1] = 1
-    
+def adjacency_dict(edges):
+    '''
+    Creates adjacency dictionary, which keys are vertices and
+    values are vertices that have an edge with key-vertice.
+    '''
+
+    graph = {}
+    for edge in edges:
+        graph.setdefault(edge[0] , set()).add(edge[1])
+        graph.setdefault(edge[1] , set()).add(edge[0])
+
+    return graph
+
+def adjacency_matrix(edges: Set[Tuple[int]], dtype='int8'):
+    '''
+    Build an adjacency_matrix for non-orientated graph
+
+    Args: edges: set of tuples, that represent edges of the graph
+
+    Returns: n*n matrix, matrix[i][j] == 1, if there is such an edge
+    and == 0, if there is not.
+    '''
+
+    num_of_vertices = len(edges)
+    # dtype is specified here as int8, however, it may need some changes
+    # if you will need weighed edges
+    matrix = np.zeros((num_of_vertices, num_of_vertices), dtype=dtype)
+    # elements that are adjacent receives value of one
+    for edge in edges:
+        matrix[edge[0] - 1, edge[1] - 1] = 1
+
     return matrix
 
 if __name__ == "__main__":
-    graph = read_graph('graphs')
+    graph = read_file('graphs')
+    print(adjacency_dict(graph))
     print(adjacency_matrix(graph))
