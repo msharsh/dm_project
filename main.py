@@ -45,8 +45,8 @@ def dict_graph_orien(edges: set) -> Dict[int, Tuple[int]]:
 
     graph = {}
     for edge in edges:
-        graph.setdefault(edge[0] , set()).add(edge)
-        graph.setdefault(edge[1] , set()).add(edge)
+        graph.setdefault(edge[0] , []).append(edge)
+        graph.setdefault(edge[1] , []).append(edge)
 
     return graph
 
@@ -58,8 +58,8 @@ def adjacency_dict(edges):
 
     graph = {}
     for edge in edges:
-        graph.setdefault(edge[0] , set()).add(edge[1])
-        graph.setdefault(edge[1] , set()).add(edge[0])
+        graph.setdefault(edge[0] , []).append(edge[1])
+        graph.setdefault(edge[1] , []).append(edge[0])
 
     return graph
 
