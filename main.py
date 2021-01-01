@@ -63,7 +63,7 @@ def adjacency_dict(edges):
 
     return graph
 
-def adjacency_matrix(edges: Set[Tuple[int]], dtype='int8'):
+def adjacency_matrix(edges: Set[Tuple[int]], dtype='int64'):
     '''
     Build an adjacency_matrix for non-orientated graph
 
@@ -79,7 +79,10 @@ def adjacency_matrix(edges: Set[Tuple[int]], dtype='int8'):
     matrix = np.zeros((num_of_vertices, num_of_vertices), dtype=dtype)
     # elements that are adjacent receives value of one
     for edge in edges:
-        matrix[edge[0] - 1, edge[1] - 1] = 1
+        try:
+            matrix[edge[0] - 1, edge[1] - 1] = 1
+        except IndexError:
+            continue
 
     return matrix
 
