@@ -2,44 +2,58 @@
 This module contains functions that implement the ability
 to read and write info to file, build adjacency dictionary and
 adjacency matrix.
-
-FEEL FREE TO MAKE CHANGES AND TO IMPROVE THIS FILE
 '''
 
 from typing import Dict, Tuple, Set
+from itertools import chain
 import numpy as np
 
 def read_file(path_to_file: str) -> Set[Tuple[int]]:
-    '''
+    """
     This function reads info from file containing a graph.
     The file should contain multiple following lines for each edge:
         int (initial vertex num), int (terminal vertex num)
 
     Returns a set of tuples containing these edges.
-    '''
+    """
 
     with open(path_to_file, encoding='utf-8') as file:
+        # if you assume that there will be the first line
+        # you can simply write file.next() (because files
+        # are actually iterators)
         data = file.readlines()
 
-    number_of_vertices = 0
-    data_set = set()
+    # doesn't get your idea to count vertices in function,
+    # that reads the file, if you need this, write other function
+    # (you might use itertools.chain for this, or some comprehension)
+    #
+    # number_of_vertices = 0
+    # data_set = set()
 
-    for line in data[1:]:
-        initial, terminal = map(int, line.rstrip().split(','))
-        number_of_vertices = max(number_of_vertices, initial, terminal)
-        data_set.add((initial, terminal))
+    return {tuple(map(int, line.rstrip().split(','))) for line in data}
+    #for idx, line in enumerate(data):
+        #initial, terminal = map(int, line.rstrip().split(','))
+        #number_of_vertices = max(number_of_vertices, initial, terminal)
+        #data_set.add((initial, terminal))
+#
+    #return number_of_vertices, data_set
 
-    return number_of_vertices, data_set
 
+def count_vertices(set_of_edges: Set[int]) -> int:
+    """
+    Counts edges of graph
+    """
+
+    return len(set(chain(*set_of_edges)))
 
 def adjacency_dict(graph_data: Set[Tuple[int]], oriented: bool=False) -> Dict[int, Set[int]]:
-    '''
+    """
     This function reads info from file containing a graph and
     creates an adjacency dictionary, where keys are vertices
     of the graph and values are their adjacent ones.
     The file should contain multiple following lines for each edge:
         int (initial vertex num), int (terminal vertex num)
-    '''
+    """
 
     graph = {}
     for (initial, terminal) in graph_data:
@@ -49,19 +63,20 @@ def adjacency_dict(graph_data: Set[Tuple[int]], oriented: bool=False) -> Dict[in
 
     return graph
 
-
-def adjacency_matrix(
-        number_of_vertices: int, graph_data: Set[Tuple[int]], oriented=False
-    ) -> np.array:
-    '''
+# NO -> need to be rewritten, because I changed the first function
+# doesn't like this thou
+def adjacency_matrix(number_of_vertices: int, graph_data: Set[Tuple[int]],
+                    oriented=False) -> np.array:
+    """
     Build an adjacency matrix for a graph
 
     Args: edges: set of tuples, that represent edges of the graph
 
     Returns: n*n matrix, matrix[i][j] == 1, if there is such an edge
     and == 0, if there is not.
-    '''
+    """
 
+    # I don't think that this is efficient enough to work with such an ugly relisation
     matrix = np.zeros((number_of_vertices+1, number_of_vertices+1), dtype=bool)
     for (initial, terminal) in graph_data:
         matrix[initial, terminal] = True
@@ -75,6 +90,8 @@ def read_adjacency_dict(path_to_file: str, oriented: bool=False) -> Dict[int, Se
     """
     Reads a graph from file and forms an adjacency dict
     """
+
+    # that's good, but what for?
     return adjacency_dict(read_file(path_to_file)[1], oriented=oriented)
 
 
@@ -82,6 +99,7 @@ def read_adjacency_matrix(path_to_file: str, oriented: bool=False) -> np.array:
     """
     Reads a graph from file and forms an adjacency matrix
     """
+    # that's good, but what for?
     return adjacency_matrix(*read_file(path_to_file), oriented=oriented)
 
 
