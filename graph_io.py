@@ -2,14 +2,13 @@
 This module contains functions that implement the ability
 to read and write info to file, build adjacency dictionary and
 adjacency matrix.
-
 FEEL FREE TO MAKE CHANGES AND TO IMPROVE THIS FILE
 '''
 
 from typing import Dict, Tuple, Set
 import numpy as np
 
-def _read_file(path_to_file: str, fedinyak_tests=True) -> Tuple[int, Set[Tuple[int]]]:
+def _read_file(path_to_file: str, fedinyak_tests: bool=True) -> Tuple[int, Set[Tuple[int]]]:
     '''
     This function reads info from file containing a graph.
     The file should contain multiple following lines for each edge:
@@ -73,9 +72,7 @@ def _adjacency_matrix(
     ) -> np.array:
     '''
     Build an adjacency matrix for a graph
-
     Args: edges: set of tuples, that represent edges of the graph
-
     Returns: n*n matrix, matrix[i][j] == 1, if there is such an edge
     and == 0, if there is not.
     '''
@@ -89,18 +86,28 @@ def _adjacency_matrix(
     return matrix
 
 
-def read_adjacency_dict(path_to_file: str, oriented: bool=False) -> Dict[int, Set[int]]:
+def read_adjacency_dict(
+        path_to_file: str, oriented: bool=False, fedinyak_tests: bool=True
+    ) -> Dict[int, Set[int]]:
     """
     Reads a graph from file and forms an adjacency dict
     """
-    return _adjacency_dict(_read_file(path_to_file)[1], oriented=oriented)
+    return _adjacency_dict(
+        _read_file(path_to_file, fedinyak_tests=fedinyak_tests)[1],
+        oriented=oriented
+    )
 
 
-def read_adjacency_matrix(path_to_file: str, oriented: bool=False) -> np.array:
+def read_adjacency_matrix(
+        path_to_file: str, oriented: bool=False, fedinyak_tests: bool=True
+    ) -> np.array:
     """
     Reads a graph from file and forms an adjacency matrix
     """
-    return _adjacency_matrix(*_read_file(path_to_file), oriented=oriented)
+    return _adjacency_matrix(
+        *_read_file(path_to_file, fedinyak_tests=fedinyak_tests),
+        oriented=oriented
+    )
 
 
 def write_adjacency_dict(
