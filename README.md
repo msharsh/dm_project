@@ -1,8 +1,5 @@
 ### Discrete maths project
 
-> changes graph io, please rewrite it
-
-
 Ейлерів цикл: - Алгоритм Флері → обхід суміжних вершин → main, isBridge → списки суміжності
 
 Ізоморфізм - перестановки стовпців в матрицях
