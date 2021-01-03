@@ -61,9 +61,9 @@ def colour_graph(graph: Dict[int, List[int]], colors: List[str])\
 
     coloured_vertices = {}
     for elm in correspondens:
-        coloured_vertices.setdefault(elm[0], []).append(elm[1])
+        coloured_vertices.setdefault(elm[0], set()).add(elm[1])
     # this need to be changed to set (but for testing it will be list)
-    coloured_vertices = {key: sorted(coloured_vertices[key]) for key in coloured_vertices}
+    coloured_vertices = {key: coloured_vertices[key] for key in coloured_vertices}
 
     return coloured_vertices
 
@@ -93,8 +93,7 @@ def colour_vertice(graph: Dict[int, List[int]],
 
 
 if __name__ == "__main__":
-    testmod()
-    #from graph_io import adjacency_dict, read_file
-    #set_of_edges = read_file('graph.csv')
-    #graph = adjacency_dict(set_of_edges)
-    #print(colour_graph(graph, ['white', 'red', 'black', 'green', 'yellow', 'blue', 'pink', 'orange', 'dark blue']))
+    #testmod()
+    from graph_io import read_adjacency_dict
+    graph = read_adjacency_dict('graph.csv')
+    print(colour_graph(graph, ['white', 'red', 'black', 'green', 'yellow', 'blue', 'pink', 'orange', 'dark blue']))

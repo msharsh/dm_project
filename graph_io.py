@@ -9,23 +9,26 @@ FEEL FREE TO MAKE CHANGES AND TO IMPROVE THIS FILE
 from typing import Dict, Tuple, Set
 import numpy as np
 
-def _read_file(path_to_file: str) -> Tuple[int, Set[Tuple[int]]]:
+def _read_file(path_to_file: str, fedinyak_tests=True) -> Tuple[int, Set[Tuple[int]]]:
     '''
     This function reads info from file containing a graph.
     The file should contain multiple following lines for each edge:
         int (initial vertex num), int (terminal vertex num)
-
     Returns a set of tuples containing these edges.
-    '''
+    ''' 
+
+    separator = ',' if not fedinyak_tests else ' '
 
     with open(path_to_file, encoding='utf-8') as file:
+        if not fedinyak_tests:
+            file.__next__()
         data = file.readlines()
 
     raw_data_set = set()
     unique_points_set = set()
 
-    for line in data[1:]:
-        initial, terminal = map(int, line.rstrip().split(','))
+    for line in data:
+        initial, terminal = map(int, line.rstrip().split(separator))
         unique_points_set.add(initial)
         unique_points_set.add(terminal)
         raw_data_set.add((initial, terminal))
