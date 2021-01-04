@@ -9,5 +9,5 @@
 - Ліля - [Знаходження ейлерового циклу](https://github.com/bohdanhlovatskyi/dm_project/tree/main/euler_cycle)
 - Стефан - [Знаходження гамільтоного циклу](https://github.com/bohdanhlovatskyi/dm_project/tree/main/hamiltonian)
 - Богдан - [Розфарбування графа, основа зчитування файлу](https://github.com/bohdanhlovatskyi/dm_project/tree/main/colouring)
-- Михайло - [Ізоморфізм, зчитування файлу]()
+- Михайло - [Ізоморфізм,](https://github.com/michael-2956/graph-isomorphism) [ зчитування файлу](https://github.com/bohdanhlovatskyi/dm_project/blob/main/graph_io.py)
 - Микола - [Дводольність](https://github.com/bohdanhlovatskyi/dm_project/tree/main/duality)
