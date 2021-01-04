@@ -1,13 +1,11 @@
 import sys
 import os
-# import graph_io_old as graph_io
 import graph_io
 import random
 import colouring.colouring as colouring
 import euler_cycle.euler_cycle as euler_cycle
 import duality.duality as duality
 import hamiltonian.hamiltonian as hamiltonian
-from pprint import pp
 
 
 def proceed_graph(file_path):
