@@ -1,9 +1,6 @@
 '''
-This modules implements the ability to find
+This module implements the ability to find
 possible coloring for the graph G = (V, E)
-
-TODO: think of visualisation -> depending on it rewrite everything
-connected with color (replace str that represents color to ints)
 '''
 
 from typing import List, Dict, Set
