@@ -44,7 +44,7 @@ def colour_graph(graph: Dict[int, List[int]], colors: List[str])\
     {}
     '''
 
-    vertices = list(graph.keys())
+    vertices = sorted(list(graph.keys()))
     correspondens = set()
     for vertice in vertices:
         # determines what color will be used (the first one from
