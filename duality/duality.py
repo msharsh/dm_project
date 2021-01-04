@@ -58,5 +58,6 @@ False if not.
     return check
 
 
-graph = read_adjacency_dict('graph.csv')
-print(duality_check(devided_vertices_create(graph), graph))
+if __name__ == "__main__":
+    graph = read_adjacency_dict('graph.csv')
+    print(duality_check(devided_vertices_create(graph), graph))
