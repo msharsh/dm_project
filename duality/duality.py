@@ -3,9 +3,10 @@ This module contains functions that сheck whether
 the graph has the property of the duality.
 """
 from graph_io import read_adjacency_dict
+import sys
 
 
-def add_point(vertex: set, parity: int, graph: dict) -> None:
+def add_point(vertex: set, parity: int, graph: dict, limit: int) -> None:
     """
     Adds adjacent vertex to the dictionary, containing devided_vertices,
 to the key corresponding to its parity. If all vertices were added returns None.
@@ -14,13 +15,13 @@ to the key corresponding to its parity. If all vertices were added returns None.
         return
     parity += 1
     parity %= 2
+    limit += 1
+    sys.setrecursionlimit(limit)
     for adjacent_vertex in vertex:
         if adjacent_vertex not in checked_vertices:
             devided_vertices[parity].add(adjacent_vertex)
             checked_vertices.add(adjacent_vertex)
-            add_point(graph[adjacent_vertex], parity, graph)
-        else:
-            pass
+            add_point(graph[adjacent_vertex], parity, graph, limit)
     return
 
 
@@ -40,7 +41,8 @@ to the first, 0 to all that are connected to previous and so on.
     devided_vertices[1] = set()
     checked_vertices = set()
     parity = 0
-    add_point(graph[1], parity, graph)
+    limit = 1000
+    add_point(graph[1], parity, graph, limit)
     return devided_vertices
 
 
