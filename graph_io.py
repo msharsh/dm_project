@@ -25,7 +25,7 @@ def read_file(path_to_file: str) -> Set[Tuple[int]]:
     number_of_vertices = 0
     data_set = set()
 
-    for line in data[1:]:
+    for line in data:
         initial, terminal = map(int, line.rstrip().split(' '))
         number_of_vertices = max(number_of_vertices, initial, terminal)
         data_set.add((initial, terminal))

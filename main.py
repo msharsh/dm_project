@@ -66,6 +66,7 @@ def run_tests():
     tests = {'euler': (execute_euler_cycle, list, None),
              '3col': (execute_coloring, int, 3), 'bipartie': (execute_duality, bool, True), 'hamiltonian': (execute_hamiltonian_cycle, list, None)}
     for key, value in tests.items():
+        print(f'-- Checking: {key}')
         failed = []
         succeed = []
         test_files = os.listdir(f'tests/{key}')
@@ -75,11 +76,9 @@ def run_tests():
                 succeed.append(file_path)
             else:
                 failed.append(file_path)
-        print('Succeed:')
-        pp(succeed)
-        print('Failed:')
-        pp(failed)
-        print('*' * 10)
+        print('Positive result:\n', succeed)
+        print('Negative result:\n', failed)
+        print('*' * 20)
 
 
 if __name__ == "__main__":
