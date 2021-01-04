@@ -6,8 +6,9 @@ possible coloring for the graph G = (V, E)
 from typing import List, Dict, Set
 from doctest import testmod
 
+
 def colour_graph(graph: Dict[int, List[int]], colors: List[str])\
-                 -> Dict[str, Set[int]]:
+        -> Dict[str, Set[int]]:
     '''
     Implements the ability to find
     possible coloring for the graph G = (V, E).
@@ -15,28 +16,28 @@ def colour_graph(graph: Dict[int, List[int]], colors: List[str])\
     Returns the coloring (correspondens between vertices and colors)
 
     # цикл з непарною кількістю вершин
-    >>> print(len(colour_graph({1: {9, 2}, 2: {1, 3}, 3: {2, 4}, 4: {3, 5}, \
-6: {5, 7}, 7: {8, 6}, 5: {4, 6}, 8: {9, 7}, 9: {8, 1}}, ['white', 'red', 'black', 'green'])))
+    >>> print(colour_graph({1: {9, 2}, 2: {1, 3}, 3: {2, 4}, 4: {3, 5}, \
+6: {5, 7}, 7: {8, 6}, 5: {4, 6}, 8: {9, 7}, 9: {8, 1}}, ['white', 'red', 'black', 'green']))
     3
 
     # цикл з парною кількістю вершин
-    >>> print(len(colour_graph({1: {2, 6}, 2: {1, 3}, 3: {2, 4}, 4: {3, 5}, 6: {1, 5}, 5: {4, 6}}, \
-['white', 'red', 'black', 'green'])))
+    >>> print(colour_graph({1: {2, 6}, 2: {1, 3}, 3: {2, 4}, 4: {3, 5}, 6: {1, 5}, 5: {4, 6}}, \
+['white', 'red', 'black', 'green']))
     2
 
     # повний граф
-    >>> print(len(colour_graph({4: {1, 2, 3, 4, 5, 6, 7, 8, 9},\
+    >>> print(colour_graph({4: {1, 2, 3, 4, 5, 6, 7, 8, 9},\
     9: {1, 2, 3, 4, 5, 6, 7, 8, 9}, 5: {1, 2, 3, 4, 5, 6, 7, 8, 9},\
     1: {1, 2, 3, 4, 5, 6, 7, 8, 9}, 8: {1, 2, 3, 4, 5, 6, 7, 8, 9},\
     2: {1, 2, 3, 4, 5, 6, 7, 8, 9}, 6: {1, 2, 3, 4, 5, 6, 7, 8, 9},\
     7: {1, 2, 3, 4, 5, 6, 7, 8, 9}, 3: {1, 2, 3, 4, 5, 6, 7, 8, 9}},\
-    ['white', 'red', 'black', 'green', 'yellow', 'blue', 'pink', 'orange', 'dark blue'])))
+    ['white', 'red', 'black', 'green', 'yellow', 'blue', 'pink', 'orange', 'dark blue']))
     9
 
     # двочастковий граф
-    >>> print(len(colour_graph({2: {3, 4, 5, 6, 7, 8, 9}, 4: {1, 2}, 7: {1, 2},\
+    >>> print(colour_graph({2: {3, 4, 5, 6, 7, 8, 9}, 4: {1, 2}, 7: {1, 2},\
     1: {3, 4, 5, 6, 7, 8, 9}, 5: {1, 2}, 8: {1, 2}, 3: {1, 2}, 9: {1, 2},\
-    6: {1, 2}}, ['white', 'red', 'black', 'green'])))
+    6: {1, 2}}, ['white', 'red', 'black', 'green']))
     2
 
     >>> print(colour_graph({}, ['white', 'red', 'black', 'green']))
@@ -60,13 +61,14 @@ def colour_graph(graph: Dict[int, List[int]], colors: List[str])\
     for elm in correspondens:
         coloured_vertices.setdefault(elm[0], set()).add(elm[1])
     # this need to be changed to set (but for testing it will be list)
-    coloured_vertices = {key: coloured_vertices[key] for key in coloured_vertices}
+    coloured_vertices = {
+        key: coloured_vertices[key] for key in coloured_vertices}
 
     return coloured_vertices
 
 
 def find_color(graph: Dict[int, List[int]],
-            colors: List[str], vertice: int) -> str:
+               colors: List[str], vertice: int) -> str:
     '''
     Finds first possible color, that a vertice can be painted with.
     '''
@@ -79,18 +81,19 @@ def find_color(graph: Dict[int, List[int]],
 
 
 def colour_vertice(graph: Dict[int, List[int]],
-                color: str, vertice: int) -> Dict[int, List[int]]:
+                   color: str, vertice: int) -> Dict[int, List[int]]:
     '''
     Changes value (name) of vertice in nested adjacency lists
     into its corresponding color
     '''
 
-    return {key : {color if elm == vertice else elm for elm in graph[key]}\
+    return {key: {color if elm == vertice else elm for elm in graph[key]}
             for key in graph.keys()}
 
 
 if __name__ == "__main__":
-    #testmod()
+    # testmod()
     from graph_io import read_adjacency_dict
     graph = read_adjacency_dict('graph.csv')
-    print(colour_graph(graph, ['white', 'red', 'black', 'green', 'yellow', 'blue', 'pink', 'orange', 'dark blue']))
+    print(colour_graph(graph, ['white', 'red', 'black', 'green',
+                               'yellow', 'blue', 'pink', 'orange', 'dark blue']))

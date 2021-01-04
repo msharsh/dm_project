@@ -1,8 +1,3 @@
-import graph_io
-import random
-import os
-
-
 def hamiltonian_cycle(graph, start_vertex):
     '''
     Retures hamilton cycle or absence message
@@ -35,18 +30,3 @@ def hamiltonian_cycle(graph, start_vertex):
     if len(path) > 0:
         return path
     return 'No solution exists'
-
-
-if __name__ == "__main__":
-    tests = os.listdir('tests')
-    total = 0
-    success = 0
-    for i in tests:
-        graph = graph_io.adjacency_dict(graph_io.read_file(f'tests/{i}'))
-        for v in graph.keys():
-            result = hamiltonian_cycle(graph, v)
-            if len(result) > 0 and v in graph[result[len(result) - 1]]:
-                success += 1
-            total += 1
-        print(f'Test: {i}\nResult: {result}')
-    print('Succeed: {0}\nTotal: {1}'.format(success, total))
